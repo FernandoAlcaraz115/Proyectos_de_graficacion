@@ -1,20 +1,43 @@
 import cv2
 import numpy as np
+from tkinter import Tk, filedialog
+from PIL import Image
 
-# Cargar imagen
-img = cv2.imread("cod_zombies.jpg") 
-cv2.imshow("Original", img)
+def cargar_imagen():
+    """Selecciona y carga la imagen de forma segura."""
+    Tk().withdraw()
+    ruta = filedialog.askopenfilename(
+        title="Selecciona una imagen",
+        filetypes=[("Archivos de imagen", "*.jpg *.png *.jpeg *.bmp *.jfif *.webp")]
+    )
+    if not ruta:
+        print("❌ No se seleccionó ninguna imagen.")
+        exit()
+    try:
+        img_pil = Image.open(ruta).convert("RGB")
+        img = cv2.cvtColor(np.array(img_pil), cv2.COLOR_RGB2BGR)
+        print("✅ Imagen cargada correctamente:", ruta)
+        return img
+    except Exception as e:
+        print("❌ Error al abrir la imagen:", e)
+        exit()
 
-# Escalar a un factor de 2 con interpolación bilineal
+# --- PROCESO ---
+img = cargar_imagen()
+
+# Escalar ×2
 img_escalada = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
-cv2.imshow("Escalada x2 (Bilineal)", img_escalada)
 
-# Rotar 45 grados con interpolación bilineal
+# Rotar 45°
 h, w = img_escalada.shape[:2]
 centro = (w // 2, h // 2)
-matriz_rot = cv2.getRotationMatrix2D(centro, 45, 1)
-img_rotada = cv2.warpAffine(img_escalada, matriz_rot, (w, h), flags=cv2.INTER_LINEAR)
-cv2.imshow("Rotada 45° (Bilineal)", img_rotada)
+M = cv2.getRotationMatrix2D(centro, 45, 1)
+img_rotada = cv2.warpAffine(img_escalada, M, (w, h), flags=cv2.INTER_LINEAR)
 
+# Mostrar resultados
+cv2.imshow("Ejercicio 1 - Escalada x2 (Bilineal)", img_escalada)
+cv2.imshow("Ejercicio 1 - Rotada 45° (Bilineal)", img_rotada)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
