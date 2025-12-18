@@ -24,7 +24,7 @@ camera_angle_y = 0.5
 camera_distance = 80.0 
 window = None
 
-# --- GEOMETRÍA (Tus funciones originales compactadas) ---
+# --- GEOMETRÍA---
 def init():
     glClearColor(0.53, 0.81, 0.92, 1.0) # Azul Cielo
     glEnable(GL_DEPTH_TEST)
@@ -135,7 +135,7 @@ def draw_ground():
 
 
 # -------------------------------------------------------------------------
-# DIBUJO DE ESCENA - AQUÍ ESTÁ LA MAGIA DEL PUEBLO COMPLETO
+# DIBUJO DE ESCENA 
 # -------------------------------------------------------------------------
 def draw_scene():
     global camera_angle_x, camera_angle_y, camera_distance
@@ -162,7 +162,7 @@ def draw_scene():
     for x in range(-city_radius, city_radius + 1):
         for z in range(-city_radius, city_radius + 1):
             
-            # ZONA DEL PARQUE CENTRAL (No dibujar casas aquí)
+            # ZONA DEL PARQUE CENTRAL 
             if -1 <= x <= 1 and -1 <= z <= 1:
                 continue
 
@@ -187,7 +187,7 @@ def draw_scene():
 
             glPopMatrix()
 
-    # --- 2. EL PARQUE CENTRAL (Tus objetos especiales) ---
+    # --- 2. EL PARQUE CENTRAL ---
     
     # Muñeco de Nieve (Animado saltando)
     glPushMatrix()
@@ -212,12 +212,12 @@ def draw_scene():
     draw_cylinder(); draw_board(); draw_hoop()
     glPopMatrix()
     
-    # Algunos árboles grandes en el parque
+    # Arboles grandes en el parque
     glPushMatrix(); glTranslatef(0, 0, -8); glScalef(1.5, 1.5, 1.5); draw_tree_round(); glPopMatrix()
     glPushMatrix(); glTranslatef(0, 0, 8); glScalef(1.5, 1.5, 1.5); draw_tree_round(); glPopMatrix()
     
-    # --- 3. OBJETOS MÓVILES (NUBES) ---
-    # 20 Nubes orbitando toda la ciudad
+    # --- 3. OBJETOS MÓVILES ---
+    # Nubes orbitando toda la ciudad
     for i in range(20):
         glPushMatrix()
         angle = t * 0.05 + (i * 0.314)

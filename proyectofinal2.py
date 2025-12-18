@@ -33,7 +33,7 @@ cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, ANCHO_CAMARA)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, ALTO_CAMARA)
 
-# Función para generar texto aleatorio "hacker"
+# Función para generar texto aleatorio 
 def generar_texto_datos():
     return f"CPU: {random.randint(20, 90)}%  MEM: {random.randint(1024, 4096)}MB  TGT: {random.randint(100, 999)}"
 
